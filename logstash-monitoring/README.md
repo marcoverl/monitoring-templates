@@ -35,7 +35,7 @@ in the terminal run:
 to create the file `helm-logstash.yaml` using the values you have in the directory and the templates that are part of the [Cloud-on-k8s](https://github.com/elastic/cloud-on-k8s/tree/main) repository.
 
 To deploy the helm file you just had created run:
-> `helm install logstash elastic/logstash -n <namespace> -f ./values-logstash.yaml`
+> `helm install logstash elastic/eck-logstash -n <namespace> -f ./values-logstash.yaml`
 
 The deployment, if using the default setting from this repository will not deploy right away as there will be secrets missing which will be deployed in `section 2`.
 
@@ -54,7 +54,7 @@ And with the use of aliases and templates within OpenSearch the dated indexes of
 Logstash as it is setup with the values provided in this repository requires 3 secrets with 3 key-value pairs for 2 of them and a file for the other, to be included in the same namespace as the logstash deployment. These secrets are:
 > `rucio-pipelines` # The secret that contains the pipelines.yml file in the `Pipelines` directory
 > `es-secrets` # which includes 3 key value pairs, USER, PASSWORD, and HOSTS with HOSTS being the connection URL to either ElasticSearch or OpenSearch (depending on what you are using)
-> `db-secrets` # which includes 3 key value pairs, USERNAME, PASSWORD, and CONNECT with the last being the connection url to your Rucio database
+> `db-secrets` # which includes 3 key value pairs, USERNAME, PASSWORD, and CONNECT with the last being the connection url to your Rucio database (e.g. jdbc:postgresql://${rucio-db-name}.${rucio-db-namespace}.svc.cluster.local:5432/rucio?currentSchema=${rucio-db-schema})
 
 
 ## 3. Register the various indexes as datasources in Grafana
@@ -70,16 +70,16 @@ In your clusters Grafana deployment go to
 - Select XXXXSearch
 
 - Put in the following details for your Search product of choice, referencing the indexes you have configured in the `pipelines.yml` file in the index line in the output section for each pipeline.
-
-> URL: https:/<XXXXSearchSoftware>.<XXXXSearchNameSpace>.local:9200  
-> Basic auth: True  
-> User: <USERNAME>  
-> Password: <XXXXSearch password>  
-> Index name: <your Index>  
-> Pattern: No pattern  
-> Time field name: create_at  
-> Max concurrent Shard Requests: 3 # If you have used the base repo settings  
-
+<pre>
+URL: https://$XXXXSearchSoftware.$XXXXSearchNameSpace.local:9200  
+Basic auth: True  
+User: $XXXXSearch_USERNAME  
+Password: $XXXXSearch_PASSWORD  
+Index name: $YOUR_INDEX_NAME  
+Pattern: No pattern  
+Time field name: created_at  
+Max concurrent Shard Requests: 3 # If you have used the base repo settings  
+</pre>
 
 ## 4. Deploy dashboards to Grafana to visualise the data
 
@@ -87,5 +87,5 @@ Once the data source is created and verified you can create a dashboard using it
 
 Navigate to Dashboards / Import
 
-Paste in the contents of `overlays/XXXXSearch/Dashboards/Rucio Storage` into the import via panel json
+Paste in the contents of `Dashboards/Rucio-Storage.json` into the import via panel json
 
