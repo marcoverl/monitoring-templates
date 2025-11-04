@@ -26,6 +26,10 @@ Logstash is found in the elastic collection of tools:
 > `helm repo add elastic https://helm.elastic.co`
 > `helm repo update`
 
+Ensure that the Custom Resource Definitions and the RBAC rules are added:
+> `kubectl create -f https://download.elastic.co/downloads/eck/2.14.0/crds.yaml`
+> `kubectl apply -f https://download.elastic.co/downloads/eck/2.14.0/operator.yaml`
+
 Modify the `values-logstash.yaml` to meet your deployment needs, whether this is the certificate useage for the pod, ingress, services, node count and capabilities/roles.
 
 Once you are happy with the `values` navigate to the logstash directory to use the `Makefile` for logstash
