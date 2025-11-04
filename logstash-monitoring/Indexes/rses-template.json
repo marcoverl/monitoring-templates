@@ -1,4 +1,5 @@
 {
+ "mappings": {
   "properties": {
     "@timestamp": {
       "type": "date"
@@ -19,4 +20,5 @@
       "type": "long"
     }
   }
+ }
 }
