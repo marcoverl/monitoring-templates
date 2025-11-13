@@ -688,7 +688,7 @@
                 "type": "count"
               }
             ],
-            "query": "event_type:transfer-done AND payload.dst-rse:${dst_rse:lucene} AND payload.src-rse:${src_rse:lucene} AND payload.protocol:${protocol:lucene} AND payload.transfer-endpoint:${fts:lucene}",
+            "query": "event_type:transfer-failed AND payload.dst-rse:${dst_rse:lucene} AND payload.src-rse:${src_rse:lucene} AND payload.protocol:${protocol:lucene} AND payload.transfer-endpoint:${fts:lucene}",
             "refId": "A",
             "timeField": "created_at"
           }
@@ -2415,7 +2415,7 @@
         },
         {
           "current": {
-            "selected": false,
+            "selected": true,
             "text": "payload.dst-rse",
             "value": "payload.dst-rse"
           },
