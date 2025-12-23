@@ -39,11 +39,11 @@
       }
     ]
   },
-  "description": "",
   "editable": true,
+  "description": "",
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
   "interval": "$bin",
   "links": [],
   "liveNow": false,
@@ -1826,7 +1826,6 @@
   },
   "timezone": "browser",
   "title": "Rucio Internal Services",
-  "uid": "null",
   "version": 16,
   "weekStart": "monday"
  }
